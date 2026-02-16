@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gestão de Vendas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="container mt-5">
+
+    <h2>Cadastro de Clientes</h2>
+
+    <div class="card p-3 mb-4">
+        <div class="row">
+            <div class="col-md-5">
+                <input type="text" id="nome" class="form-control" placeholder="Nome do Cliente">
+            </div>
+            <div class="col-md-5">
+                <input type="email" id="email" class="form-control" placeholder="Email">
+            </div>
+            <div class="col-md-2">
+                <button onclick="salvarCliente()" class="btn btn-primary w-100">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody id="tabela-corpo">
+        </tbody>
+    </table>
+
+    <div class="col-md-2 w-35 mx-auto">
+        <button type="button" id="btn-desistir" onclick="desistir()" class="text-center btn btn-secondary w-100">Desistir</button>
+    </div>
+
+    <script src="javascript/scriptCliente.js"></script>
+</body>
+
+</html>
