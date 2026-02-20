@@ -47,7 +47,8 @@ async function salvarCliente() {
 
     const dados = {
         nome: nomeInput,
-        email: emailInput
+        email: emailInput,
+        dataCadastro: new Date().toISOString() // Envia a data atual no formato ISO (ex: "2024-06-01T12:00:00.000Z")
     };
 
     const resposta = await fetch(API_URL, {
@@ -67,6 +68,60 @@ async function salvarCliente() {
     } else {
         alert('Erro ao salvar');
     }
+}
+
+async function localizarCliente() {
+    const consulta = document.getElementById('consultarCliente').value.trim();    
+    if (consulta === '') {
+        alert('Digite um nome ou ID para consultar!');
+        return;
+    }        
+    
+    // Você monta a URL com o parâmetro de busca, dependendo se é ID ou nome
+    const urlComFiltro = `${API_URL}/${consulta}`; 
+
+    const resposta = await fetch(urlComFiltro, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    if (!resposta.ok) {
+        alert('Erro ao consultar cliente!');
+        return;
+    }
+
+    // Opcional: Verifica se a resposta está vazia antes de converter
+    const texto = await resposta.text(); 
+    if (!texto) {
+        alert("Nenhum cliente retornado.");
+        return;
+    }
+
+    const tabela = document.getElementById('tabela-corpo');
+    tabela.innerHTML = ''; // Limpa a tabela
+
+    const cliente = JSON.parse(texto); // Converte o JSON recebido
+
+    // Para cada cliente, cria uma linha na tabela
+    const linha = `
+        <tr>
+            <td>${cliente.id}</td>
+            <td>${cliente.nome}</td>
+            <td>${cliente.email}</td>
+            
+            <td>
+                <a th:href="@{/clientes/excluir/{id}(id=${cliente.id})}" 
+                class="btn btn-danger btn-sm"
+                onclick="removerCliente(${cliente.id}); return false;">
+                Excluir
+                </a>
+            </td>
+
+        </tr>
+    `;
+    tabela.innerHTML += linha;
 }
 
 // 3. DELETE: Enviar dados para a API
