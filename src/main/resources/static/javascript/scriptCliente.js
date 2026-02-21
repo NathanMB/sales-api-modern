@@ -69,6 +69,60 @@ async function salvarCliente() {
     }
 }
 
+async function localizarCliente() {
+    const consulta = document.getElementById('consultarCliente').value.trim();    
+    if (consulta === '') {
+        carregarClientes();
+        return
+    }        
+    
+    // Você monta a URL com o parâmetro de busca, dependendo se é ID ou nome
+    const urlComFiltro = `${API_URL}/${consulta}`; 
+
+    const resposta = await fetch(urlComFiltro, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    if (!resposta.ok) {
+        alert('Erro ao consultar cliente!');
+        return;
+    }
+
+    // Opcional: Verifica se a resposta está vazia antes de converter
+    const texto = await resposta.text(); 
+    if (!texto) {
+        alert("Nenhum cliente retornado.");
+        return;
+    }
+
+    const tabela = document.getElementById('tabela-corpo');
+    tabela.innerHTML = ''; // Limpa a tabela
+
+    const cliente = JSON.parse(texto); // Converte o JSON recebido
+
+    // Para cada cliente, cria uma linha na tabela
+    const linha = `
+        <tr>
+            <td>${cliente.id}</td>
+            <td>${cliente.nome}</td>
+            <td>${cliente.email}</td>
+            
+            <td>
+                <a th:href="@{/clientes/excluir/{id}(id=${cliente.id})}" 
+                class="btn btn-danger btn-sm"
+                onclick="removerCliente(${cliente.id}); return false;">
+                Excluir
+                </a>
+            </td>
+
+        </tr>
+    `;
+    tabela.innerHTML += linha;
+}
+
 // 3. DELETE: Enviar dados para a API
 async function removerCliente(id) {
     const resposta = await fetch(`${API_URL}/${id}`, {

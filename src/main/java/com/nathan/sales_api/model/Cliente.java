@@ -2,8 +2,13 @@ package com.nathan.sales_api.model;
 
 import jakarta.persistence.*; // JPA moderno usa Jakarta, não Javax
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.Instant;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity // Diz ao Spring que isso é uma tabela
 @Table(name = "tb_clientes")
@@ -17,16 +22,21 @@ public class Cliente implements Serializable {
     @Column(nullable = false)
     private String nome;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
+
+    @CreationTimestamp
+    @Column(nullable = false)
+    private Instant dataCadastro;
 
     // Construtor vazio (obrigatório pro JPA)
     public Cliente() {}
 
     // Construtor cheio
-    public Cliente(String nome, String email) {
+    public Cliente(String nome, String email, Instant dataCadastro) {
         this.nome = nome;
         this.email = email;
+        this.dataCadastro = dataCadastro;
     }
 
 }
