@@ -2,9 +2,10 @@ package com.nathan.sales_api.model;
 
 import jakarta.persistence.*; // JPA moderno usa Jakarta, não Javax
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.time.Instant;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -21,7 +22,7 @@ public class Cliente implements Serializable {
     @Column(nullable = false)
     private String nome;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
     @CreationTimestamp

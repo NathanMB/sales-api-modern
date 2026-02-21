@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gestão de Vendas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="container mt-5">
+
+    <h2>Cadastro de Produtos</h2>
+
+    <div class="card p-2 mb-4">
+        <div class="row">
+            <div class="col-md-6">
+                <input type="text" id="descricao" class="form-control" placeholder="Descrição">
+            </div>
+              <div class="col-md-2">
+                <input type="number" id="quantidadeEstoque" class="form-control" placeholder="Estoque" min="0">
+            </div>
+            <div class="col-md-2">
+                <input type="number" id="valor" class="form-control" placeholder="Valor" min="0" step="0.01">
+            </div>
+            <div class="col-md-2">
+                <button onclick="salvarProduto()" class="btn btn-primary w-100">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="w-20">ID</th>
+                <th class="w-35">Descrição</th>
+                <th class="w-20">Estoque</th>
+                <th class="w-20">Valor</th>
+            </tr>
+        </thead>
+        <tbody id="tabela-corpo">
+        </tbody>
+    </table>
+
+    <div class="card p-3 mb-4">
+        <div class="row">
+            <div class="col-md-5">
+                <input type="text" id="consultarProduto" class="form-control" placeholder="Consultar Produto">
+            </div>
+             <div class="col-md-2">
+                <button onclick="localizarProduto()" class="btn btn-primary w-100">Consultar</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-2 w-35 mx-auto">
+        <button type="button" id="btn-desistir" onclick="desistir()" class="text-center btn btn-secondary w-100">Desistir</button>
+    </div>
+
+    <script src="javascript/scriptProduto.js"></script>
+</body>
+
+</html>

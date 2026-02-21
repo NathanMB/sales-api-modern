@@ -28,7 +28,7 @@ public class ClienteController {
         return repository.save(cliente);
     }
 
-    // GET: Listar por nome
+    // GET: Listar por Identificador (ID ou Nome)
     @GetMapping("/{identificador}")
     public Cliente consultaCliente(@PathVariable String identificador) {
         ArrayList<Cliente> clientes = new ArrayList<>();

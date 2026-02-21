@@ -47,8 +47,7 @@ async function salvarCliente() {
 
     const dados = {
         nome: nomeInput,
-        email: emailInput,
-        dataCadastro: new Date().toISOString() // Envia a data atual no formato ISO (ex: "2024-06-01T12:00:00.000Z")
+        email: emailInput
     };
 
     const resposta = await fetch(API_URL, {
@@ -73,8 +72,8 @@ async function salvarCliente() {
 async function localizarCliente() {
     const consulta = document.getElementById('consultarCliente').value.trim();    
     if (consulta === '') {
-        alert('Digite um nome ou ID para consultar!');
-        return;
+        carregarClientes();
+        return
     }        
     
     // Você monta a URL com o parâmetro de busca, dependendo se é ID ou nome
